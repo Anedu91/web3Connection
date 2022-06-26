@@ -81,12 +81,15 @@ async function fetchAccountData() {
   const chainData = evmChains.getChain(chainId);
   console.log("chaindata is", chainData);
 
+  document.querySelector("#net").innerHTML = chainData.name;
+
   // Get list of accounts of the connected wallet
   const accounts = await web3.eth.getAccounts();
 
   // MetaMask does not give you all accounts, only the selected account
   console.log("Got accounts", accounts);
   selectedAccount = accounts[0];
+  document.querySelector("#account").innerHTML = selectedAccount;
 
   // Go through all accounts and get their ETH balance
   const rowResolvers = accounts.map(async (address) => {
@@ -95,7 +98,8 @@ async function fetchAccountData() {
     // https://github.com/indutny/bn.js/
     const ethBalance = web3.utils.fromWei(balance, "ether");
     const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
-    console.log("human balance", humanFriendlyBalance);
+    document.querySelector("#balance").innerHTML = humanFriendlyBalance;
+    console.log("human balance", balance);
     console.log("address", address);
   });
 
