@@ -122,6 +122,9 @@ window.addEventListener("load", async () => {
   document
     .querySelector("#btn-disconnect")
     .addEventListener("click", onDisconnect);
+  document
+    .querySelector("#btn-contract")
+    .addEventListener("click", fetchContractData);
   // document
   //     .querySelector('#btn-disconnect')
   //     .addEventListener('click', onDisconnect)
