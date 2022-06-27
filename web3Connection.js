@@ -1,4 +1,4 @@
-const abiContract = require("./abi.json");
+import abiContract from "./abi.json";
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const Fortmatic = window.Fortmatic;
