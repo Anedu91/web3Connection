@@ -1,4 +1,3 @@
-import abiContract from "./abi.json";
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const Fortmatic = window.Fortmatic;
@@ -109,11 +108,11 @@ async function fetchAccountData() {
 }
 
 // Contract info
-async function fetchContractData() {
-  const nameContract = web3.eth.Contract(abiContract, CONTRACT_ADDRESS);
+// async function fetchContractData() {
+//   const nameContract = web3.eth.Contract(abiContract, CONTRACT_ADDRESS);
 
-  console.log(nameContract.methods);
-}
+//   console.log(nameContract.methods);
+// }
 
 // Entry point
 window.addEventListener("load", async () => {
@@ -125,7 +124,4 @@ window.addEventListener("load", async () => {
   document
     .querySelector("#btn-contract")
     .addEventListener("click", fetchContractData);
-  // document
-  //     .querySelector('#btn-disconnect')
-  //     .addEventListener('click', onDisconnect)
 });
