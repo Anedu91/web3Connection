@@ -48,6 +48,24 @@ async function onConnect() {
     return;
   }
 
+  provider.on("accountsChanged", (accounts) => {
+    console.log("accountsChanged", accounts);
+
+    fetchAccountData();
+  });
+
+  // Subscribe to chainId change
+  provider.on("chainChanged", (chainId) => {
+    console.log("chainChanged", chainId);
+    fetchAccountData();
+  });
+
+  // Subscribe to networkId change
+  provider.on("networkChanged", (networkId) => {
+    console.log("networkId :>> ", networkId);
+    fetchAccountData();
+  });
+
   await fetchAccountData();
 }
 async function onDisconnect() {
@@ -92,21 +110,6 @@ async function fetchAccountData() {
   document.querySelector("#account").innerHTML = selectedAccount;
 
   // Go through all accounts and get their ETH balance
-  const rowResolvers = accounts.map(async (address) => {
-    const balance = await web3.eth.getBalance(address);
-    // ethBalance is a BigNumber instance
-    // https://github.com/indutny/bn.js/
-    const ethBalance = web3.utils.fromWei(balance, "ether");
-    const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
-    document.querySelector("#balance").innerHTML = humanFriendlyBalance;
-    console.log("human balance", balance);
-    console.log("address", address);
-  });
-
-  // Because rendering account does its own RPC commucation
-  // with Ethereum node, we do not want to display any results
-  // until data for all accounts is loaded
-  await Promise.all(rowResolvers);
 }
 
 // Entry point
