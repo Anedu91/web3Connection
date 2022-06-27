@@ -1,7 +1,9 @@
+const abiContract = require("./abi.json");
 const Web3Modal = window.Web3Modal.default;
 const WalletConnectProvider = window.WalletConnectProvider.default;
 const Fortmatic = window.Fortmatic;
 const evmChains = window.evmChains;
+const CONTRACT_ADDRESS = "0x4AFE0AF3C5Bb8d50CBA4e8151cC31A99F1a8e7B9";
 
 let web3Modal;
 
@@ -104,6 +106,13 @@ async function fetchAccountData() {
   document.querySelector("#account").innerHTML = selectedAccount;
 
   // Go through all accounts and get their ETH balance
+}
+
+// Contract info
+async function fetchContractData() {
+  const nameContract = web3.eth.Contract(abiContract, CONTRACT_ADDRESS);
+
+  console.log(nameContract.methods);
 }
 
 // Entry point
