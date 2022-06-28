@@ -117,7 +117,10 @@ async function fetchAccountData() {
 
 // Contract info
 async function fetchContractData() {
-  const nameContract = web3Instance.eth.Contract(abiContract, CONTRACT_ADDRESS);
+  const nameContract = new web3Instance.eth.Contract(
+    abiContract,
+    CONTRACT_ADDRESS
+  );
   console.log(nameContract);
 }
 
