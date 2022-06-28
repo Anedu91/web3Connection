@@ -97,9 +97,9 @@ async function onDisconnect() {
 async function fetchAccountData() {
   // Get a Web3 instance for the wallet
   const web3Instance = new Web3(provider);
-  console.log(
-    new web3Instance.eth.Contract(abiContract.JSON, CONTRACT_ADDRESS)
-  );
+  // console.log(
+  new web3Instance.eth.Contract(JSON.stringify(abiContract), CONTRACT_ADDRESS);
+  // );
   // Get connected chain id from Ethereum node
   const chainId = await web3Instance.eth.getChainId();
   // Load chain information over an HTTP API
