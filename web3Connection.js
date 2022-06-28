@@ -17,6 +17,9 @@ let provider;
 // Address of the selected account
 let selectedAccount;
 
+// web3 Instance
+let web3Instance;
+
 //Setting inital setups
 function init() {
   const providerOptions = {
@@ -92,7 +95,7 @@ async function onDisconnect() {
 // After a provider was selected
 async function fetchAccountData() {
   // Get a Web3 instance for the wallet
-  const web3 = new Web3(provider);
+  const web3Instance = new Web3(provider);
 
   // Get connected chain id from Ethereum node
   const chainId = await web3.eth.getChainId();
@@ -114,9 +117,9 @@ async function fetchAccountData() {
 
 // Contract info
 async function fetchContractData() {
-  const nameContract = web3.eth.Contract(abiContract, CONTRACT_ADDRESS);
+  const nameContract = web3Instance.eth.Contract(abiContract, CONTRACT_ADDRESS);
 
-  console.log(nameContract.methods);
+  console.log(nameContract);
 }
 
 // Entry point
