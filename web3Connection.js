@@ -96,7 +96,7 @@ async function onDisconnect() {
 async function fetchAccountData() {
   // Get a Web3 instance for the wallet
   const web3Instance = new Web3(provider);
-  console.log(web3Instance);
+  console.log(web3Instance.eth.Contract);
   // Get connected chain id from Ethereum node
   const chainId = await web3Instance.eth.getChainId();
   // Load chain information over an HTTP API
@@ -116,13 +116,13 @@ async function fetchAccountData() {
 }
 
 // Contract info
-async function fetchContractData() {
-  const nameContract = new web3Instance.eth.Contract(
-    abiContract,
-    CONTRACT_ADDRESS
-  );
-  console.log(nameContract);
-}
+// async function fetchContractData() {
+//   const nameContract = new web3Instance.eth.Contract(
+//     abiContract,
+//     CONTRACT_ADDRESS
+//   );
+//   console.log(nameContract);
+// }
 
 // Entry point
 window.addEventListener("load", async () => {
