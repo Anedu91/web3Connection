@@ -109,8 +109,8 @@ async function fetchAccountData() {
 
 // Contract info
 async function fetchContractData() {
-  let abitContract;
-  fetch("./abi.json").then((response) => (abitContract = response.json()));
+  let abiContract;
+  fetch("./abi.json").then((response) => (abiContract = response.json()));
   const nameContract = web3.eth.Contract(abiContract, CONTRACT_ADDRESS);
 
   console.log(nameContract.methods);
