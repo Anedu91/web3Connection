@@ -98,7 +98,7 @@ async function fetchAccountData() {
   const web3Instance = new Web3(provider);
 
   // Get connected chain id from Ethereum node
-  const chainId = await web3.eth.getChainId();
+  const chainId = await web3Instance.eth.getChainId();
   // Load chain information over an HTTP API
   const chainData = evmChains.getChain(chainId);
   console.log("chaindata is", chainData);
@@ -106,7 +106,7 @@ async function fetchAccountData() {
   document.querySelector("#net").innerHTML = chainData.name;
 
   // Get list of accounts of the connected wallet
-  const accounts = await web3.eth.getAccounts();
+  const accounts = await web3Instance.eth.getAccounts();
 
   // MetaMask does not give you all accounts, only the selected account
   selectedAccount = accounts[0];
