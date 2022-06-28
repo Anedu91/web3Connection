@@ -108,11 +108,13 @@ async function fetchAccountData() {
 }
 
 // Contract info
-// async function fetchContractData() {
-//   const nameContract = web3.eth.Contract(abiContract, CONTRACT_ADDRESS);
+async function fetchContractData() {
+  let abitContract;
+  fetch("./abi.json").then((result) => (abitContract = result));
+  const nameContract = web3.eth.Contract(abiContract, CONTRACT_ADDRESS);
 
-//   console.log(nameContract.methods);
-// }
+  console.log(nameContract.methods);
+}
 
 // Entry point
 window.addEventListener("load", async () => {
@@ -121,7 +123,7 @@ window.addEventListener("load", async () => {
   document
     .querySelector("#btn-disconnect")
     .addEventListener("click", onDisconnect);
-  // document
-  //   .querySelector("#btn-contract")
-  //   .addEventListener("click", fetchContractData);
+  document
+    .querySelector("#btn-contract")
+    .addEventListener("click", fetchContractData);
 });
