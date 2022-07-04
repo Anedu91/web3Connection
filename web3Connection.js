@@ -125,7 +125,7 @@ async function fetchContractData() {
 
   console.log(nameContract);
 
-  nameContract.methods.mintNFT([1]).send();
+  nameContract.methods.mintNFT().send({ from: selectedAccount });
 }
 
 // Entry point
