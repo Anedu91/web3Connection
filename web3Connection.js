@@ -122,7 +122,10 @@ async function fetchContractData() {
     contractAbi,
     CONTRACT_ADDRESS
   );
+
   console.log(nameContract);
+
+  nameContract.methods.mintNFT().send();
 }
 
 // Entry point
