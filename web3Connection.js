@@ -15,6 +15,8 @@ let selectedAccount;
 // web3 Instance
 let web3Instance;
 
+let contractInstance;
+
 //Setting inital setups
 function init() {
   const providerOptions = {
@@ -118,14 +120,16 @@ function grabJson() {
 async function fetchContractData() {
   const contractAbi = await grabJson();
 
-  const nameContract = new web3Instance.eth.Contract(
+  contractInstance = new web3Instance.eth.Contract(
     contractAbi,
     CONTRACT_ADDRESS
   );
 
-  console.log(nameContract);
+  console.log(contractInstance);
 
-  nameContract.methods.mintNFT([0]).send({ from: selectedAccount });
+  await contractInstance.methods.approve();
+  await contractInstance.methods.presaleIsActive();
+  contractInstance.methods.mintNFT([0]).send({ from: selectedAccount });
 }
 
 // Entry point
