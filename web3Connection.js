@@ -127,8 +127,8 @@ async function fetchContractData() {
 
   console.log(contractInstance);
 
-  await contractInstance.methods.approve(selectedAccount, 1);
-  await contractInstance.methods.presaleIsActive();
+  await contractInstance.methods.approve(selectedAccount, "1");
+  await contractInstance.methods.preSaleIsActive();
   contractInstance.methods.mintNFT([0]).send({ from: selectedAccount });
 }
 
