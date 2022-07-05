@@ -127,7 +127,7 @@ async function fetchContractData() {
 
   console.log(contractInstance);
 
-  const price = await contractInstance.methods.price();
+  const price = await contractInstance.methods.price().call();
   console.log(price);
   // await contractInstance.methods.preSaleIsActive();
   contractInstance.methods.mintNFT([0]).send({ from: selectedAccount });
