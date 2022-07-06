@@ -86,7 +86,7 @@ async function onDisconnect() {
   }
 
   selectedAccount = null;
-  document.querySelector("#account").innerHTML = selectedAccount;
+  document.querySelector("#account").innerHTML = "";
 }
 
 // After a provider was selected
@@ -144,6 +144,7 @@ async function fetchContractData() {
 }
 
 async function mintFunction(price) {
+  console.log(price);
   return await contractInstance.methods
     .mintNFT(1)
     .send({ from: selectedAccount, value: price });
