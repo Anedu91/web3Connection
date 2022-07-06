@@ -99,7 +99,7 @@ async function fetchAccountData() {
   const chainData = evmChains.getChain(chainId);
   console.log("chaindata is", chainData);
 
-  if (chainData.chainId === "80001") {
+  if (chainData.chainId === 80001) {
     await fetchContractData();
     document.querySelector("#net").innerHTML = chainData.name;
 
