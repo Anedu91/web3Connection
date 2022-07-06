@@ -100,6 +100,7 @@ async function fetchAccountData() {
   console.log("chaindata is", chainData);
 
   if (chainData.chainId === "80001") {
+    await fetchContractData();
     document.querySelector("#net").innerHTML = chainData.name;
 
     // Get list of accounts of the connected wallet
@@ -151,7 +152,7 @@ async function mintFunction(price) {
 // Entry point
 window.addEventListener("load", async () => {
   init();
-  await fetchContractData();
+
   document.querySelector("#btn-connect").addEventListener("click", onConnect);
   document
     .querySelector("#btn-disconnect")
