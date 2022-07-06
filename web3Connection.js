@@ -109,6 +109,7 @@ async function fetchAccountData() {
     selectedAccount = accounts[0];
     document.querySelector("#account").innerHTML = selectedAccount;
     document.querySelector("#btn-contract").style.display = "block";
+    document.querySelector("#btn-disconnect").style.display = "block";
     // Go through all accounts and get their ETH balance
   } else {
     alert("Change your wallet to matic network");
