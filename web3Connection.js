@@ -17,6 +17,8 @@ let web3Instance;
 
 let contractInstance;
 
+let transactionPrice;
+
 //Setting inital setups
 function init() {
   const providerOptions = {
@@ -48,29 +50,25 @@ async function onConnect() {
   try {
     provider = await web3Modal.connect();
   } catch (e) {
-    console.log("Could not get a wallet connection", e);
+    alert(`Could not get a wallet connection, ${e}`);
     return;
   }
 
   provider.on("accountsChanged", (accounts) => {
-    console.log("accountsChanged", accounts);
-
     fetchAccountData();
   });
 
   // Subscribe to chainId change
   provider.on("chainChanged", (chainId) => {
-    console.log("chainChanged", chainId);
     fetchAccountData();
   });
 
   // Subscribe to networkId change
   provider.on("networkChanged", (networkId) => {
-    console.log("networkId :>> ", networkId);
     fetchAccountData();
   });
 
-  await fetchAccountData();
+  await refreshAccountData();
 }
 async function onDisconnect() {
   console.log("Killing the wallet connection", provider);
@@ -101,16 +99,31 @@ async function fetchAccountData() {
   const chainData = evmChains.getChain(chainId);
   console.log("chaindata is", chainData);
 
-  document.querySelector("#net").innerHTML = chainData.name;
+  if (chainData.chainId === "80001") {
+    document.querySelector("#net").innerHTML = chainData.name;
 
-  // Get list of accounts of the connected wallet
-  const accounts = await web3Instance.eth.getAccounts();
+    // Get list of accounts of the connected wallet
+    const accounts = await web3Instance.eth.getAccounts();
 
-  // MetaMask does not give you all accounts, only the selected account
-  selectedAccount = accounts[0];
-  document.querySelector("#account").innerHTML = selectedAccount;
+    // MetaMask does not give you all accounts, only the selected account
+    selectedAccount = accounts[0];
+    document.querySelector("#account").innerHTML = selectedAccount;
+    document.querySelector("#btn-contract").style.display = "block";
+    // Go through all accounts and get their ETH balance
+  } else {
+    alert("Change your wallet to matic network");
+  }
+}
 
-  // Go through all accounts and get their ETH balance
+// updating UI during transactions
+async function refreshAccountData() {
+  const $btnConnect = document.querySelector("#btn-connect");
+
+  $btnConnect.setAttribute("disabled", "disabled");
+  $btnConnect.innerHTML = "Loading...";
+  await fetchAccountData(provider);
+  $btnConnect.removeAttribute("disabled");
+  $btnConnect.innerHTML = "Connect Wallet";
 }
 
 function grabJson() {
@@ -125,12 +138,11 @@ async function fetchContractData() {
     CONTRACT_ADDRESS
   );
 
-  console.log(contractInstance);
+  transactionPrice = await contractInstance.methods.price().call();
+}
 
-  const price = await contractInstance.methods.price().call();
-  console.log(price);
-  // await contractInstance.methods.preSaleIsActive();
-  contractInstance.methods
+async function mintFunction(price) {
+  return await contractInstance.methods
     .mintNFT(1)
     .send({ from: selectedAccount, value: price });
 }
@@ -138,11 +150,18 @@ async function fetchContractData() {
 // Entry point
 window.addEventListener("load", async () => {
   init();
+  await fetchContractData();
   document.querySelector("#btn-connect").addEventListener("click", onConnect);
   document
     .querySelector("#btn-disconnect")
     .addEventListener("click", onDisconnect);
+
   document
     .querySelector("#btn-contract")
-    .addEventListener("click", fetchContractData);
+    .addEventListener("click", async () => {
+      mintFunction(transactionPrice).then(
+        (tx) => alert("Thank you"),
+        (error) => alert("something happens")
+      );
+    });
 });
