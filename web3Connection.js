@@ -86,6 +86,7 @@ async function onDisconnect() {
   }
 
   selectedAccount = null;
+  document.querySelector("#account").innerHTML = selectedAccount;
 }
 
 // After a provider was selected
