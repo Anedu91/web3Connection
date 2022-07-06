@@ -101,7 +101,6 @@ async function fetchAccountData() {
 
   if (chainData.chainId === 80001) {
     await fetchContractData();
-    document.querySelector("#net").innerHTML = chainData.name;
 
     // Get list of accounts of the connected wallet
     const accounts = await web3Instance.eth.getAccounts();
