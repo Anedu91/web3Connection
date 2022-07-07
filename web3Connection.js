@@ -144,7 +144,6 @@ async function fetchContractData() {
 }
 
 async function mintFunction(price) {
-  console.log(price);
   return await contractInstance.methods
     .mintNFT(1)
     .send({ from: selectedAccount, value: price });
@@ -167,4 +166,6 @@ window.addEventListener("load", async () => {
         (error) => alert("something happens")
       );
     });
+
+  document.querySelector("#buy-now").addEventListener("click");
 });
