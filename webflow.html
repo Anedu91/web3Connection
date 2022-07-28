@@ -9,9 +9,9 @@
   <body>
     <button id="mint-button">Mint</button>
     <script>
-      CONTRACT_ADDRESS = "0xD4520CDb725fbCb5e458E672d33dca821618FE0E";
-      NETWORK_ID = 8001;
-      MAX_PER_MINT = 1;
+      CONTRACT_ADDRESS = "0x41B4d627c2339Ac7cCFFFD4EAa9059CE7B7430F4";
+      NETWORK_ID = 80001;
+      MAX_PER_MINT = 50;
       CONTRACT_ABI = [
         {
           inputs: [
@@ -290,6 +290,15 @@
         },
         {
           inputs: [
+            { internalType: "address", name: "_sender", type: "address" },
+          ],
+          name: "getPrice",
+          outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
             { internalType: "address", name: "owner", type: "address" },
             { internalType: "address", name: "operator", type: "address" },
           ],
@@ -336,6 +345,7 @@
         {
           inputs: [
             { internalType: "uint256", name: "amountTokens", type: "uint256" },
+            { internalType: "address", name: "_to", type: "address" },
           ],
           name: "mintNFT",
           outputs: [],
@@ -504,7 +514,7 @@
             { internalType: "address", name: "from", type: "address" },
             { internalType: "address", name: "to", type: "address" },
             { internalType: "uint256", name: "tokenId", type: "uint256" },
-            { internalType: "bytes", name: "_data", type: "bytes" },
+            { internalType: "bytes", name: "data", type: "bytes" },
           ],
           name: "safeTransferFrom",
           outputs: [],
@@ -652,20 +662,18 @@
         },
         { stateMutability: "payable", type: "receive" },
       ];
-      DEFAULTS = {
-        hideCounter: true,
-        contractMethods: {
-          mint: "mintNFT", // defaults to "mint" or "publicMint"
-        },
-      };
-
       STYLES = {
         theme: "dark",
       };
+      DEFAULTS = {
+        contractMethods: {
+          maxSupply: "totalSupply",
+        },
+      };
     </script>
-    <script src="https://nftcomponents.vercel.app/static/js/main.js"></script>
+    <script src="https://web3-statics.vercel.app/static/js/main.js"></script>
     <link
-      href="https://nftcomponents.vercel.app/static/css/main.css"
+      href="https://web3-statics.vercel.app/static/css/main.css"
       rel="stylesheet"
     />
   </body>
